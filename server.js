@@ -45,7 +45,10 @@ require('./data/reddit-db');
 // Dotenv library used to encrypt passwords for security -> 'salting' a password
 require('./controllers/posts.js')(app);
 require('./controllers/comments.js')(app);
-
+require('./controllers/posts')(app);
+require('./controllers/comments.js')(app);
+require('./controllers/auth.js')(app);
+require('./controllers/replies.js')(app);
 
 
 module.exports = app;
