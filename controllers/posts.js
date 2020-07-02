@@ -6,13 +6,12 @@ const Post = require('../models/post');
 module.exports = app => {
   app.get("/posts/:id", function(req, res) {
   // LOOK UP THE POST
-  Post.findById(req.params.id)
-    .then(post => {
-      res.render("posts-show", { post });
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
+  Post.findById(req.params.id).populate('comments').then((post) => {
+  res.render('post-show', { post })
+}).catch((err) => {
+  console.log(err.message)
+})
+
 });
   // CREATE
   app.post('/posts/new', (req, res) => {
