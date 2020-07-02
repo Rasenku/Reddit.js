@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const Post = require('../models/post');
 
 const PostSchema = new Schema({
   title: { type: String, required: true },
@@ -21,5 +21,3 @@ module.exports = mongoose.model("Post", PostSchema);
       return res.redirect(`/`);
     })
   });
-
-};
