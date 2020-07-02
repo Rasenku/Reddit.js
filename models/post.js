@@ -1,31 +1,21 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Post = require('../models/post');
+const Populate = require("../utils/autopopulate");
 
 const PostSchema = new Schema({
   title: { type: String, required: true },
   url: { type: String, required: true },
-  summary: { type: String, required: true }
+  summary: { type: String, required: true },
+  subreddit: { type: String, required: true },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+  author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  upVotes : [{ type: Schema.Types.ObjectId, ref: "User" }],
+  downVotes : [{ type: Schema.Types.ObjectId, ref: "User" }],
+  voteScore : { type: Number }
 });
 
-module.exports = mongoose.model("Post", PostSchema);
-
-// CREATE
-  app.post('/posts/new', (req, res) => {
-    // INSTANTIATE INSTANCE OF POST MODEL
-    const post = new Post(req.body);
-
-    // SAVE INSTANCE OF POST MODEL TO DB
-    post.save((err, post) => {
-      // REDIRECT TO THE ROOT
-      return res.redirect(`/`);
-    })
-  });
-
-
-  // Always populate the author field
 PostSchema
-    .pre('findOne', Populate('author'))
-    .pre('find', Populate('author'))
+  .pre('findOne', Populate('author'))
+  .pre('find', Populate('author'))
 
 module.exports = mongoose.model("Post", PostSchema);

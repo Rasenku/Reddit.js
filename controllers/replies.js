@@ -5,14 +5,15 @@ var User = require("../models/user");
 module.exports = app => {
   // NEW REPLY
   app.get("/posts/:postId/comments/:commentId/replies/new", (req, res) => {
+    console.log('get to comments/replies')
     let post;
-    Post.findById(req.params.postId)
+    Post.findById(req.params.postId).lean()
       .then(p => {
         post = p;
-        return Comment.findById(req.params.commentId);
+        return Comment.findById(req.params.commentId).lean();
       })
       .then(comment => {
-        res.render("replies-new", { post, comment });
+        res.render("replies_new", { post, comment });
       })
       .catch(err => {
         console.log(err.message);
@@ -20,7 +21,8 @@ module.exports = app => {
   });
 
   // CREATE REPLY
-app.post("/posts/:postId/comments/:commentId/replies", (req, res) => {
+  app.post("/posts/:postId/comments/:commentId/replies", (req, res) => {
+    console.log('post to comments/replies')
     // TURN REPLY INTO A COMMENT OBJECT
     const reply = new Comment(req.body);
     reply.author = req.user._id
@@ -47,4 +49,5 @@ app.post("/posts/:postId/comments/:commentId/replies", (req, res) => {
             // SAVE THE CHANGE TO THE PARENT DOCUMENT
             return post.save();
         })
-});
+  });
+};
