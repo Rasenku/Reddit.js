@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Reddit.js</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                {{#if currentUser}}
+                    <a href="/posts/new" class="btn btn-primary navbar-btn">New Post</a>
+                {{/if}}
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {{#if currentUser}}
+                <li><a href="/logout">Logout</a></li>
+            {{else}}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/sign-up">Sign Up</a></li>
+            {{/if}}
+        </ul>
+    </div>
+
+
+</nav>
