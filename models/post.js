@@ -21,3 +21,11 @@ module.exports = mongoose.model("Post", PostSchema);
       return res.redirect(`/`);
     })
   });
+
+
+  // Always populate the author field
+PostSchema
+    .pre('findOne', Populate('author'))
+    .pre('find', Populate('author'))
+
+module.exports = mongoose.model("Post", PostSchema);
